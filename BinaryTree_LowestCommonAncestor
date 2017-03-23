@@ -1,0 +1,88 @@
+/*
+Node is defined as 
+
+typedef struct node
+{
+   int data;
+   node * left;
+   node * right;
+}node;
+
+*/
+
+typedef struct LLnode
+{
+    node * d;
+    struct LLnode * next;    
+}LLnode;
+
+LLnode * insertLL(node * ptr)
+{
+    LLnode * l = new LLnode();
+    l->d = ptr;
+    l->next = NULL;
+    
+    return l;
+}
+
+LLnode * treeToLL(int v, node * root)
+{
+    node * ptr = root;
+    LLnode * LL1 = NULL;
+    LLnode * p, * pre;
+    
+    while(ptr->data != v)
+    {
+        if(LL1==NULL)
+            LL1 = insertLL(ptr);
+        else
+        {
+            p = LL1;
+            while(p!=NULL)
+            {
+                pre = p;
+                p = p->next;
+            }
+            pre->next = insertLL(ptr);
+        }
+       
+        if(v > ptr->data)
+            ptr = ptr->right;
+        else
+            ptr = ptr->left;
+    }    
+    
+    if(LL1==NULL)
+            LL1 = insertLL(ptr);
+    else
+    {
+        p = LL1;
+        while(p!=NULL)
+        {
+            pre = p;
+            p = p->next;
+        }
+        pre->next = insertLL(ptr);  //inserting last node
+    }
+    return LL1;
+}
+
+node * lca(node * root, int v1,int v2)
+{
+    LLnode * LL1 = treeToLL(v1, root);
+    LLnode * LL2 = treeToLL(v2, root);
+    node * lcanum;
+    LLnode * ptr1 = LL1;
+    LLnode * ptr2 = LL2;
+    
+    while(ptr1!=NULL && ptr2!=NULL)
+    {
+        if(ptr1->d == ptr2->d)
+        {    lcanum = ptr1->d;
+             ptr2 = ptr2->next;
+        }
+        ptr1= ptr1->next;            
+    }
+  //  cout<<lcanum->data;
+    return lcanum;    
+}
