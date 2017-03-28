@@ -1,0 +1,78 @@
+class Person
+{
+    protected :
+        string name;
+        int age;
+    public:
+        virtual void getdata()=0;   // pure virtual functions, class cannot be instantiated
+        virtual void putdata()=0;
+};
+
+class Professor : public Person
+{
+    private :
+        int publications;
+        int cur_id;
+        static int countP; 
+    public :
+        Professor();
+        void getdata();       
+        void putdata();
+};
+
+int Professor::countP = 0;      //static members need to be defined
+
+Professor::Professor()
+{
+            countP++;
+            cur_id = countP;
+}
+void Professor::getdata()
+{
+            cin>>name;
+            cin>>age;
+            cin>>publications;
+}
+void Professor::putdata()
+{
+    cout<<name<<" "<<age<<" "<<publications<<" "<<cur_id<<"\n";
+}
+
+class Student : public Person
+{
+    private :
+        int marks[6];
+        int cur_id;
+        static int countS; 
+    
+    public :
+        Student();    
+        void getdata();
+        void putdata();
+};
+
+int Student::countS = 0;    // static members need to be defined
+Student::Student()
+        {
+            countS++;
+            cur_id = countS;            
+        }
+void Student::getdata()
+        {
+            cin>>name;
+            cin>>age;
+            for(int i=0;i<6;i++)
+            {
+                cin >> marks[i];    
+            }
+        }
+void Student::putdata()
+        {
+             int sum =0;
+            
+            for(int i=0;i<6;i++)
+                sum+=marks[i];
+            
+             cout<<name<<" "<<age<<" "<<sum<<" "<<cur_id<<"\n";
+        }
+
