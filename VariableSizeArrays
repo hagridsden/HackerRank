@@ -1,0 +1,35 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    
+    int n,q,k,a,b;
+    
+    cin>>n>>q;
+    
+    int * arr[n]; //array pointing to array of integers
+    
+    for(int i=0;i<n;i++)
+    {
+        cin>>k;
+        
+        arr[i] = new int[k];  //variable size arrays
+        
+        for(int j=0;j<k;j++)
+            cin>>arr[i][j];   //becomes a 2-D array
+    }
+    
+    for(int i=0;i<q;i++)
+    {
+        cin>>a>>b;
+        cout<<arr[a][b]<<"\n";
+    }
+    
+    return 0;
+}
